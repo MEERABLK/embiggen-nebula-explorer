@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { ZoomIn, ZoomOut, RotateCw, Layers, Download } from "lucide-react";
+import { ZoomIn, ZoomOut, RotateCw, Layers, Download, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import earthSample from "@/assets/earth-sample.jpg";
+import { datasets, aiInsights, DatasetMetadata } from "@/data/datasets";
 
 const ImageExplorer = () => {
+  const [selectedPlanet, setSelectedPlanet] = useState("Earth");
+  const [selectedDataset, setSelectedDataset] = useState<DatasetMetadata>(datasets.Earth[0]);
   const [zoom, setZoom] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
@@ -34,6 +36,22 @@ const ImageExplorer = () => {
   const handleMouseUp = () => {
     setIsDragging(false);
   };
+
+  const handlePlanetChange = (planet: string) => {
+    setSelectedPlanet(planet);
+    const planetDatasets = datasets[planet as keyof typeof datasets];
+    if (planetDatasets && planetDatasets.length > 0) {
+      setSelectedDataset(planetDatasets[0]);
+      handleReset();
+    }
+  };
+
+  const handleDatasetChange = (dataset: DatasetMetadata) => {
+    setSelectedDataset(dataset);
+    handleReset();
+  };
+
+  const currentInsights = aiInsights[selectedDataset.id] || [];
 
   return (
     <section id="explorer" className="py-20 px-4">
@@ -103,73 +121,105 @@ const ImageExplorer = () => {
                 onMouseLeave={handleMouseUp}
               >
                 <img
-                  src={earthSample}
-                  alt="NASA Earth Imagery"
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none"
+                  src={selectedDataset.image}
+                  alt={selectedDataset.name}
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none max-w-none"
                   style={{
                     transform: `translate(calc(-50% + ${position.x}px), calc(-50% + ${position.y}px)) scale(${zoom})`,
                     transition: isDragging ? 'none' : 'transform 0.2s',
+                    width: '100%',
+                    height: 'auto',
                   }}
                   draggable={false}
                 />
 
-                {/* AI Highlight Example */}
-                <div 
-                  className="absolute top-1/2 left-1/2 w-32 h-32 border-2 border-accent rounded-lg aurora-glow pointer-events-none animate-pulse"
-                  style={{
-                    transform: `translate(calc(-50% + ${position.x}px), calc(-50% + ${position.y}px)) scale(${zoom})`,
-                  }}
-                >
-                  <div className="absolute -top-8 left-0 bg-accent text-accent-foreground px-2 py-1 rounded text-xs font-semibold">
-                    AI Detected: Weather Pattern
+                {/* AI Highlight for primary detected pattern */}
+                {currentInsights.length > 0 && (
+                  <div 
+                    className="absolute top-1/2 left-1/2 w-32 h-32 border-2 border-accent rounded-lg aurora-glow pointer-events-none animate-pulse"
+                    style={{
+                      transform: `translate(calc(-50% + ${position.x}px), calc(-50% + ${position.y}px)) scale(${zoom})`,
+                    }}
+                  >
+                    <div className="absolute -top-8 left-0 bg-accent text-accent-foreground px-2 py-1 rounded text-xs font-semibold whitespace-nowrap">
+                      AI Detected: {currentInsights[0].pattern}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </Card>
           </div>
 
           {/* Sidebar Controls */}
           <div className="space-y-4">
-            {/* Dataset Selector */}
+            {/* Planet Selector */}
             <Card className="glass-panel p-4">
               <h3 className="font-semibold mb-3 flex items-center gap-2">
                 <Layers className="w-4 h-4 text-primary" />
-                Datasets
+                Celestial Bodies
               </h3>
               <div className="space-y-2">
-                {['Earth', 'Moon', 'Mars', 'Andromeda'].map((dataset) => (
+                {Object.keys(datasets).map((planet) => (
                   <button
-                    key={dataset}
+                    key={planet}
+                    onClick={() => handlePlanetChange(planet)}
                     className={`w-full text-left px-3 py-2 rounded-lg transition-all ${
-                      dataset === 'Earth' 
+                      planet === selectedPlanet 
                         ? 'bg-primary text-primary-foreground cosmic-glow' 
                         : 'hover:bg-muted'
                     }`}
                   >
-                    {dataset}
+                    {planet}
                   </button>
                 ))}
               </div>
             </Card>
 
+            {/* Dataset Selector within Planet */}
+            {datasets[selectedPlanet as keyof typeof datasets].length > 1 && (
+              <Card className="glass-panel p-4">
+                <h3 className="font-semibold mb-3 flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-accent" />
+                  {selectedPlanet} Datasets
+                </h3>
+                <div className="space-y-2">
+                  {datasets[selectedPlanet as keyof typeof datasets].map((dataset) => (
+                    <button
+                      key={dataset.id}
+                      onClick={() => handleDatasetChange(dataset)}
+                      className={`w-full text-left px-3 py-2 rounded-lg transition-all text-sm ${
+                        dataset.id === selectedDataset.id
+                          ? 'bg-accent/20 border border-accent' 
+                          : 'hover:bg-muted'
+                      }`}
+                    >
+                      <div className="font-medium">{dataset.name}</div>
+                      <div className="text-xs text-muted-foreground mt-0.5">
+                        {dataset.timestamp}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </Card>
+            )}
+
             {/* AI Insights */}
             <Card className="glass-panel p-4">
               <h3 className="font-semibold mb-3 text-accent">AI Insights</h3>
               <div className="space-y-3 text-sm">
-                <div className="flex items-start gap-2">
-                  <div className="w-2 h-2 rounded-full bg-accent mt-1.5 animate-pulse" />
-                  <div>
-                    <div className="font-medium">Weather Pattern</div>
-                    <div className="text-muted-foreground text-xs">Confidence: 94%</div>
+                {currentInsights.map((insight, idx) => (
+                  <div key={idx} className="flex items-start gap-2">
+                    <div className={`w-2 h-2 rounded-full mt-1.5 animate-pulse ${
+                      idx === 0 ? 'bg-accent' : 'bg-secondary'
+                    }`} />
+                    <div>
+                      <div className="font-medium">{insight.pattern}</div>
+                      <div className="text-muted-foreground text-xs">
+                        Confidence: {insight.confidence}%
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <div className="w-2 h-2 rounded-full bg-secondary mt-1.5 animate-pulse" />
-                  <div>
-                    <div className="font-medium">Cloud Formation</div>
-                    <div className="text-muted-foreground text-xs">Confidence: 87%</div>
-                  </div>
-                </div>
+                ))}
               </div>
             </Card>
 
@@ -179,19 +229,38 @@ const ImageExplorer = () => {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Source</span>
-                  <span className="font-medium">NASA MODIS</span>
+                  <span className="font-medium text-right">{selectedDataset.source}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Resolution</span>
-                  <span className="font-medium">1.2 GP</span>
+                  <span className="font-medium">{selectedDataset.resolution}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Date</span>
-                  <span className="font-medium">2024-10-04</span>
+                  <span className="font-medium">{selectedDataset.timestamp}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Wavelength</span>
-                  <span className="font-medium">Visible</span>
+                  <span className="font-medium text-right">{selectedDataset.wavelength}</span>
+                </div>
+                {selectedDataset.coordinates && (
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Coordinates</span>
+                    <span className="font-medium">
+                      {selectedDataset.coordinates.lat.toFixed(1)}°, {selectedDataset.coordinates.lon.toFixed(1)}°
+                    </span>
+                  </div>
+                )}
+                {selectedDataset.windSpeed && (
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Wind Speed</span>
+                    <span className="font-medium">{selectedDataset.windSpeed}</span>
+                  </div>
+                )}
+                <div className="pt-2 border-t border-border/50">
+                  <p className="text-muted-foreground text-xs leading-relaxed">
+                    {selectedDataset.description}
+                  </p>
                 </div>
               </div>
             </Card>
