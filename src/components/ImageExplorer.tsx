@@ -131,6 +131,9 @@ const ImageExplorer = () => {
                     height: 'auto',
                   }}
                   draggable={false}
+                  onError={(e) => {
+                    e.currentTarget.src = `${import.meta.env.BASE_URL}fallback.jpg`;
+                  }}
                 />
 
                 {/* AI Highlight for primary detected pattern */}

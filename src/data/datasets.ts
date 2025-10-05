@@ -1,5 +1,8 @@
 import earthSample from "@/assets/earth-sample.jpg";
 import cycloneImage from "@/assets/tropical-cyclone-02a.png";
+import moonImg from "@/assets/moon_lroc_preview.jpg";
+import marsImg from "@/assets/mars_hirise_preview.jpg";
+import andromedaImg from "@/assets/andromeda_hubble_preview.jpg";
 
 export interface DatasetMetadata {
   id: string;
@@ -60,8 +63,8 @@ export const datasets: Record<string, DatasetMetadata[]> = {
       source: "NASA / LRO LROC",
       resolution: "100 m/px",
       wavelength: "Visible",
-      image: "https://svs.gsfc.nasa.gov/vis/a000000/a004600/a004675/tycho_lroc_wac_643nm_4096.jpg",
-      thumbnail: "https://svs.gsfc.nasa.gov/vis/a000000/a004600/a004675/tycho_lroc_wac_643nm_4096.jpg",
+      image: moonImg,
+      thumbnail: moonImg,
     },
     {
       id: "moon-copernicus-crater",
@@ -74,8 +77,8 @@ export const datasets: Record<string, DatasetMetadata[]> = {
       source: "NASA / LRO LROC",
       resolution: "0.5 m/px",
       wavelength: "Visible",
-      image: "https://svs.gsfc.nasa.gov/vis/a010000/a010900/a010929/frames/5760x3240_16x9_30p/Copernicus.0303.jpg",
-      thumbnail: "https://svs.gsfc.nasa.gov/vis/a010000/a010900/a010929/frames/5760x3240_16x9_30p/Copernicus.0303.jpg",
+      image: moonImg,
+      thumbnail: moonImg,
     },
     {
       id: "moon-south-pole",
@@ -88,8 +91,8 @@ export const datasets: Record<string, DatasetMetadata[]> = {
       source: "NASA / LRO LROC",
       resolution: "100 m/px",
       wavelength: "Visible",
-      image: "https://svs.gsfc.nasa.gov/vis/a010000/a011100/a011109/LRO_SouthPole_Mosaic_8192.jpg",
-      thumbnail: "https://svs.gsfc.nasa.gov/vis/a010000/a011100/a011109/LRO_SouthPole_Mosaic_8192.jpg",
+      image: moonImg,
+      thumbnail: moonImg,
     },
     {
       id: "moon-mare-orientale",
@@ -102,8 +105,8 @@ export const datasets: Record<string, DatasetMetadata[]> = {
       source: "NASA / LRO LROC",
       resolution: "100 m/px",
       wavelength: "Visible",
-      image: "https://svs.gsfc.nasa.gov/vis/a010000/a012000/a012034/LRO_Orientale_WAC_8192.png",
-      thumbnail: "https://svs.gsfc.nasa.gov/vis/a010000/a012000/a012034/LRO_Orientale_WAC_8192.png",
+      image: moonImg,
+      thumbnail: moonImg,
     },
   ],
   Mars: [
@@ -118,8 +121,8 @@ export const datasets: Record<string, DatasetMetadata[]> = {
       source: "NASA / JPL / UA HiRISE",
       resolution: "25 cm/px",
       wavelength: "RGB Composite",
-      image: "https://www.uahirise.org/images/2016/details/cut/ESP_044342_2015.jpg",
-      thumbnail: "https://www.uahirise.org/images/2016/details/cut/ESP_044342_2015.jpg",
+      image: marsImg,
+      thumbnail: marsImg,
     },
     {
       id: "mars-valles-marineris",
@@ -132,8 +135,8 @@ export const datasets: Record<string, DatasetMetadata[]> = {
       source: "NASA / JPL / UA HiRISE",
       resolution: "50 cm/px",
       wavelength: "RGB Composite",
-      image: "https://www.uahirise.org/images/2020/details/cut/ESP_065359_1660.jpg",
-      thumbnail: "https://www.uahirise.org/images/2020/details/cut/ESP_065359_1660.jpg",
+      image: marsImg,
+      thumbnail: marsImg,
     },
     {
       id: "mars-polar-ice-cap",
@@ -146,8 +149,8 @@ export const datasets: Record<string, DatasetMetadata[]> = {
       source: "NASA / JPL / UA HiRISE",
       resolution: "30 cm/px",
       wavelength: "RGB Composite",
-      image: "https://www.uahirise.org/images/2018/details/cut/ESP_055115_2650.jpg",
-      thumbnail: "https://www.uahirise.org/images/2018/details/cut/ESP_055115_2650.jpg",
+      image: marsImg,
+      thumbnail: marsImg,
     },
     {
       id: "mars-gale-crater-msl",
@@ -160,8 +163,8 @@ export const datasets: Record<string, DatasetMetadata[]> = {
       source: "NASA / JPL / UA HiRISE",
       resolution: "25 cm/px",
       wavelength: "RGB Composite",
-      image: "https://www.uahirise.org/images/2012/details/cut/ESP_028335_1755.jpg",
-      thumbnail: "https://www.uahirise.org/images/2012/details/cut/ESP_028335_1755.jpg",
+      image: marsImg,
+      thumbnail: marsImg,
     },
     {
       id: "mars-recurring-slope-lineae",
@@ -174,8 +177,8 @@ export const datasets: Record<string, DatasetMetadata[]> = {
       source: "NASA / JPL / UA HiRISE",
       resolution: "30 cm/px",
       wavelength: "RGB Composite",
-      image: "https://www.uahirise.org/images/2015/details/cut/ESP_041277_1380.jpg",
-      thumbnail: "https://www.uahirise.org/images/2015/details/cut/ESP_041277_1380.jpg",
+      image: marsImg,
+      thumbnail: marsImg,
     },
   ],
   Andromeda: [
@@ -189,8 +192,8 @@ export const datasets: Record<string, DatasetMetadata[]> = {
       source: "NASA / ESA / Hubble",
       resolution: "0.04 arcsec/px",
       wavelength: "Multi-band (UV–NIR)",
-      image: "https://hubblesite.org/files/live/sites/hubble/files/home/science/galaxies/andromeda-phat/_images/all_filters.jpg",
-      thumbnail: "https://hubblesite.org/files/live/sites/hubble/files/home/science/galaxies/andromeda-phat/_images/all_filters.jpg",
+      image: andromedaImg,
+      thumbnail: andromedaImg,
     },
     {
       id: "andromeda-nucleus",
@@ -202,8 +205,8 @@ export const datasets: Record<string, DatasetMetadata[]> = {
       source: "NASA / ESA / Hubble",
       resolution: "0.05 arcsec/px",
       wavelength: "Near-IR",
-      image: "https://hubblesite.org/files/live/sites/hubble/files/home/news/2019/news-releases-2019/_images/hubble-andromeda-nucleus-2015.jpg",
-      thumbnail: "https://hubblesite.org/files/live/sites/hubble/files/home/news/2019/news-releases-2019/_images/hubble-andromeda-nucleus-2015.jpg",
+      image: andromedaImg,
+      thumbnail: andromedaImg,
     },
     {
       id: "andromeda-halo-stars",
@@ -215,8 +218,8 @@ export const datasets: Record<string, DatasetMetadata[]> = {
       source: "NASA / ESA / Hubble",
       resolution: "0.05 arcsec/px",
       wavelength: "Optical",
-      image: "https://hubblesite.org/files/live/sites/hubble/files/home/resource-gallery/images/_images/andromeda-galaxy-mosaic.jpg",
-      thumbnail: "https://hubblesite.org/files/live/sites/hubble/files/home/resource-gallery/images/_images/andromeda-galaxy-mosaic.jpg",
+      image: andromedaImg,
+      thumbnail: andromedaImg,
     },
     {
       id: "andromeda-spiral-arms",
@@ -228,8 +231,8 @@ export const datasets: Record<string, DatasetMetadata[]> = {
       source: "NASA / ESA / Hubble",
       resolution: "0.04 arcsec/px",
       wavelength: "UV–Optical",
-      image: "https://hubblesite.org/files/live/sites/hubble/files/home/news/2015/news-releases-2015/news-release-2015-02/_images/STSCI-H-p1502a-d-2400x1700.jpg",
-      thumbnail: "https://hubblesite.org/files/live/sites/hubble/files/home/news/2015/news-releases-2015/news-release-2015-02/_images/STSCI-H-p1502a-d-2400x1700.jpg",
+      image: andromedaImg,
+      thumbnail: andromedaImg,
     },
   ],
 };
