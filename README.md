@@ -71,3 +71,18 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## Data Sources & Credits
+
+### NASA Non-Endorsement
+
+NASA does not endorse any non-U.S. Government entity and is not responsible for information contained on non-U.S. Government websites. For non-U.S. Government websites, participants must comply with any data use parameters of that specific website.
+
+### Datasets Used
+
+- **Earth imagery**: NASA MODIS/VIIRS via NASA Worldview
+- **Moon imagery**: NASA Lunar Reconnaissance Orbiter Camera (LROC) via Arizona State University
+- **Mars imagery**: NASA Mars Reconnaissance Orbiter HiRISE via University of Arizona / JPL
+- **Andromeda imagery**: NASA/ESA Hubble Space Telescope via HubbleSite and STScI
+
+For a complete list of data sources and resources, visit the [Data Sources page](/data-sources) in the application.
